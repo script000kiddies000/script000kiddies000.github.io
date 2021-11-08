@@ -1,197 +1,45 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<html>
+    <head>
+        <title>testing api sanber</title>
+    </head>
+    <body>
+        <div id="content"></div>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script>
+            $('#content').empty();
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            let searchParams = new URLSearchParams(window.location.search)
+            let param = searchParams.get('id')
 
-    <meta name="author" content="Muhammad Rizky Rahmattullah">
-    <meta name="description" content="M Rizky R&#39;s personal website">
-    <meta name="keywords" content="blog,developer,personal">
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: `https://raw.githubusercontent.com/script000kiddies000/materi-sanbercode/master/${param}.json`,
+                success: function(response, status){
+                    console.log(response.section);
+                    console.log(status);                   
 
-    <meta property="og:site_name" content="Muhammad Rizky Rahmattullah">
-    <meta property="og:title" content="Muhammad Rizky Rahmattullah">
-    <meta property="og:description" content="M Rizky R&#39;s personal website">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mrizkyr.my.id/">
-    <meta property="og:image" content="https://mrizkyr.my.id/images/tn.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="https://mrizkyr.my.id/">
-    <meta name="twitter:image" content="https://mrizkyr.my.id/images/tn.png">
+                    for (const [key_section, section] of Object.entries(response.section)) {
+                        let nama = `<h1> ${key_section} - ${section.nama}</h1>`;
+                        $('#content').append(nama);
 
-    <base href="https://mrizkyr.my.id/">
-    <title>Muhammad Rizky Rahmattullah</title>
+                        for (const [key_posting, posting] of Object.entries(section.posting)){
+                            console.log(posting);
 
-    <link rel="canonical" href="https://mrizkyr.my.id/">
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    
-    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
-    <link rel="stylesheet" href="https://mrizkyr.my.id/css/normalize.min.css">
-    <link rel="stylesheet" href="https://mrizkyr.my.id/css/style.min.css">
+                            let data = `${key_posting} - ${posting.judul} </br>`;
+                            data += `${posting.konten}</br>`
+                            $('#content').append(data)
+                        }
 
-    
+                    }
+                },
+                statusCode: {
+                    404: function() {
+                        alert("page not found");
+                    }
+                }
+            });
 
-    
-
-    <link rel="icon" type="image/png" href="https://mrizkyr.my.id/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="https://mrizkyr.my.id/images/favicon-16x16.png" sizes="16x16">
-
-    
-      <link rel="alternate" href="https://mrizkyr.my.id/index.xml" type="application/rss+xml" title="Muhammad Rizky Rahmattullah">
-      <link href="https://mrizkyr.my.id/index.xml" rel="feed" type="application/rss+xml" title="Muhammad Rizky Rahmattullah" />
-    
-
-    <meta name="generator" content="Hugo 0.58.3" />
-  </head>
-
-  <body class="">
-    <main class="wrapper">
-      <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="/">Muhammad Rizky Rahmattullah</a>
-    <input type="checkbox" id="menu-control"/>
-    <label class="menu-mobile  float-right " for="menu-control">
-      <span class="btn-mobile  float-right ">&#9776;</span>
-      <ul class="navigation-list">
-        
-          
-            <li class="navigation-item  align-center ">
-              <a class="navigation-link" href="https://mrizkyr.my.id/posts">Blog</a>
-            </li>
-          
-            <li class="navigation-item  align-center ">
-              <a class="navigation-link" href="https://mrizkyr.my.id/about/">About</a>
-            </li>
-          
-            <li class="navigation-item  align-center ">
-              <a class="navigation-link" href="https://mrizkyr.my.id/contact/">Contact Me</a>
-            </li>
-          
-        
-        
-      </ul>
-    </label>
-  </section>
-</nav>
-
-
-      <div class="content">
-        
-  <section class="container centered">
-  <div class="about">
-    
-      <div class="avatar"><img src="https://mrizkyr.my.id/images/avatar.jpg" alt="avatar"></div>
-    
-    <h1>Muhammad Rizky Rahmattullah</h1>
-    <h2>Web Backend Developer, Pentest, Hacking, CTF Gamers</h2>
-    
-    <ul class="social-list">
-      
-        <li class="social-item">
-          <a href="https://github.com/script000kiddies000/" aria-label="Github" >
-            
-              <i class="fab fa-github" aria-hidden="true"></i>
-            
-          </a>
-        </li>
-      
-        <li class="social-item">
-          <a href="https://t.me/script000kiddies000" aria-label="Telegram" >
-            
-              <i class="fab fa-telegram" aria-hidden="true"></i>
-            
-          </a>
-        </li>
-      
-        <li class="social-item">
-          <a href="https://mobile.facebook.com/scriptkiddies.127.0.0.1" aria-label="Facebook" >
-            
-              <i class="fab fa-facebook" aria-hidden="true"></i>
-            
-          </a>
-        </li>
-      
-        <li class="social-item">
-          <a href="https://kangwriteup.me" aria-label="LinkedIn" >
-            
-              <i class="fa fa-globe" aria-hidden="true"></i>
-            
-          </a>
-        </li>
-      
-    </ul>
-    
-  </div>
-</section>
-
-
-      </div>
-      
-        <footer class="footer">
-  <section class="container">
-    
-      <div class="sns-shares sp-sns-shares">
-        
-          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fmrizkyr.my.id%2f&ref_src=twsrc%5Etfw&text=Muhammad%20Rizky%20Rahmattullah Muhammad%20Rizky%20Rahmattullah&tw_p=tweetbutton&url=https%3a%2f%2fmrizkyr.my.id%2f"><i class="fab fa-twitter"></i></a>
-        
-        
-          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fmrizkyr.my.id%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
-        
-        
-          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://mrizkyr.my.id/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
-        
-        
-        
-      </div>
-    
-    
-      <p>Enter a text here.</p>
-    
-     © 0001    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
-
-  </section>
-</footer>
-<div class="fixed-bar">
-  <section class="container">
-    
-      <p id="privateTriggerText">Do you want to know me more private?→<a id="privateTrigger">Click!</a></p>
-    
-    
-      <div class="sns-shares pc-sns-shares">
-        
-          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fmrizkyr.my.id%2f&ref_src=twsrc%5Etfw&text=Muhammad%20Rizky%20Rahmattullah Muhammad%20Rizky%20Rahmattullah&tw_p=tweetbutton&url=https%3a%2f%2fmrizkyr.my.id%2f"><i class="fab fa-twitter"></i></a>
-        
-        
-          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fmrizkyr.my.id%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
-        
-        
-          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://mrizkyr.my.id/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
-        
-        
-        
-      </div>
-    
-  </section>
-</div>
-
-      
-    </main>
-
-    
-
-  <script src="https://mrizkyr.my.id/js/app.js"></script>
-  
-  <script>
-  (function($) {
-    $(function() {
-      $('#privateTrigger').on('click', function() {
-        $('.private').slideToggle();
-        $('#privateTriggerText').text("Thank You! Please share it if you like it→");
-      });
-    });
-   })(jQuery);
-  </script>
-  
-  </body>
+        </script>
+    </body>
 </html>
