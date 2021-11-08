@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- Favicon -->
-    <link href="https://adinusa.id/media/images/settings/adinusa-logo-color.png" rel="icon" type="image/png" />
+    <link href="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" rel="icon" type="image/png" />
     <!-- Basic Page Needs
         ================================================== -->
     <title id="title"></title>
@@ -44,7 +44,7 @@
                         <h4 class="text-2xl font-semibold mb-5" id="judul"> </h4>
                         <hr class="my-5" />
                         <div class="content-course" id="content">
-
+                            Pilih materi di menu sebelah kiri.
                         </div>
                         <!-- form pengumpulan tugas -->
                         <!-- alert pengumpulan semua tugas -->
@@ -84,22 +84,19 @@
             </span>
             <!-- back to home link -->
             <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
-                <a class="flex items-center text-blue-500 text-sm" href="/courses/ansible">
+                <a class="flex items-center text-blue-500 text-sm" href="script000kiddies000.github.io">
                     <ion-icon class="text-lg" name="chevron-back-outline"></ion-icon>
                     <span class="lg:inline hidden"> Kembali</span>
                 </a>
             </div>
             <!-- title -->
-            <h1 class="text-2xl font-bold mt-2"> Ansible </h1>
+            <!-- <h1 class="text-2xl font-bold mt-2"> Ansible </h1> -->
             <!-- sidebar list -->
             <div class="sidebar_inner" data-simplebar="">
                 <div class="relative overflow-hidden rounded-md bg-gray-200 h-1 mt-4">
                     <div class="h-full bg-green-500" style="width: 100%"></div>
                 </div>
-                <div class="mt-2 text-sm border-b pb-3">
-                    <div> 100% Selesai</div>
-                    <div> Diselesaikan pada Mei 04, 2021</div>
-                </div>
+
                 <input class="keySearch mt-2" id="myInput" onkeyup="searchContent()" placeholder="Cari materi" type="text" />
                 <hr class="my-2" />
                 <div id="curriculum">
@@ -151,7 +148,6 @@
     <script src="https://course.adinusa.id/static/website/infinite/infinite.min.js"></script>
 
     <script>
-        $('#content').empty();
 
         let searchParams = new URLSearchParams(window.location.search);
         let materi_id = searchParams.get('id');
@@ -193,6 +189,7 @@
                             if (posting_id == posting.uuid){
                                 $('#title').append(posting.judul);
                                 $('#judul').append(posting.judul);
+                                $('#content').empty();
                                 $('#content').append(posting.konten);
                             }
                         }
