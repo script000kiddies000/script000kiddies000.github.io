@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <!-- Favicon -->
+    <link href="https://adinusa.id/media/images/settings/adinusa-logo-color.png" rel="icon" type="image/png" />
+    <!-- Basic Page Needs
+        ================================================== -->
+    <title id="title"></title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- icons
+    ================================================== -->
+    <link href="https://course.adinusa.id/static/template_v3/css/icons.css" rel="stylesheet" />
+    <!-- CSS
+    ================================================== -->
+    <link href="https://course.adinusa.id/static/template_v3/css/uikit.css" rel="stylesheet" />
+    <link href="https://course.adinusa.id/static/template_v3/css/style.css" rel="stylesheet" />
+    <link href="https://course.adinusa.id/static/template_v3/css/tailwind.css" rel="stylesheet" />
+    <link href="https://course.adinusa.id/static/adminlte/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://course.adinusa.id/static/template_v3/css/adinusa.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="course-watch" id="wrapper">
+        <style>
+        </style>
+        <script>
+        </script>
+        <!-- Main Contents -->
+        <div class="main_content">
+            <nav class="cd-secondary-nav border-b md:p-0 lg:px-6">
+                <ul uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
+                    <li><a class="lg:px-2" href="#"> Modul </a></li>
+                </ul>
+            </nav>
+            <div class="container">
+                <div class="max-w-2xl lg:py-3 uk-switcher" id="course-tabs">
+                    <!--  Overview -->
+                    <div>
+                        <h4 class="text-2xl font-semibold mb-5" id="judul"> </h4>
+                        <hr class="my-5" />
+                        <div class="content-course" id="content">
+
+                        </div>
+                        <!-- form pengumpulan tugas -->
+                        <!-- alert pengumpulan semua tugas -->
+                        <hr class="my-10" />
+                        <a class="bg-blue-500 rounded p-2 text-white hover:bg-white float-left" href="/sections/tasks"><i class="fas fa-arrow-left"></i> Sebelumnya</a>
+                        <a class="bg-blue-500 rounded p-2 text-white hover:bg-white float-right" href="/sections/defining-inventory">Selanjutnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .course-watch .sidebar ul.course-curriculum-list li>a::before {
+                background: url(/static/template_v3/images/chevron-forward-circle-outline.svg);
+                background-color: rgba(0, 0, 0, 0);
+            }
+
+            .sidebar .sidebar_inner ul li.active a,
+            .sidebar .sidebar_inner ul li.uk-active a {
+                background-color: rgba(42, 65, 232, 0.07);
+                color: #2a41e8 !important;
+            }
+
+            .sidebar .sidebar_inner ul li.active a,
+            .sidebar .sidebar_inner ul li.uk-active a:hover {
+                background-color: rgba(42, 65, 232, 0.07);
+                color: #2a41e8 !important;
+            }
+
+            a.not-active:hover {
+                cursor: not-allowed !important;
+            }
+        </style>
+        <!-- sidebar -->
+        <div class="sidebar">
+            <!-- slide_menu for mobile -->
+            <span class="slide_menu right-3 left-auto" uk-toggle="target: .sidebar ; cls: is-active">
+            </span>
+            <!-- back to home link -->
+            <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
+                <a class="flex items-center text-blue-500 text-sm" href="/courses/ansible">
+                    <ion-icon class="text-lg" name="chevron-back-outline"></ion-icon>
+                    <span class="lg:inline hidden"> Kembali</span>
+                </a>
+            </div>
+            <!-- title -->
+            <h1 class="text-2xl font-bold mt-2"> Ansible </h1>
+            <!-- sidebar list -->
+            <div class="sidebar_inner" data-simplebar="">
+                <div class="relative overflow-hidden rounded-md bg-gray-200 h-1 mt-4">
+                    <div class="h-full bg-green-500" style="width: 100%"></div>
+                </div>
+                <div class="mt-2 text-sm border-b pb-3">
+                    <div> 100% Selesai</div>
+                    <div> Diselesaikan pada Mei 04, 2021</div>
+                </div>
+                <input class="keySearch mt-2" id="myInput" onkeyup="searchContent()" placeholder="Cari materi" type="text" />
+                <hr class="my-2" />
+                <div id="curriculum">
+                    <dov class="py-4 pt-4 pb-2 divide-y space-y-3" id="myUL" uk-accordion="multiple: true">
+
+                    </dov>
+                </div>
+            </div>
+            <!-- overly for mobile -->
+            <div class="overly-mobi bg-black bg-opacity-30" uk-toggle="target: .sidebar ; cls: is-active"></div>
+        </div>
+        <script>
+            function searchContent() {
+                $('.ukordion').addClass('uk-open');
+                // Declare variables
+                var input, filter, ul, li, a, i, txtValue;
+                input = document.getElementById('myInput');
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("myUL");
+                li = ul.getElementsByTagName('li');
+
+                // Loop through all list items, and hide those who don't match the search query
+                for (i = 0; i < li.length; i++) {
+                    a = li[i].getElementsByTagName("a")[0];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                    } else {
+                        li[i].style.display = "none";
+                    }
+                }
+            }
+        </script>
+    </div>
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://course.adinusa.id/static/template_v3/js/jquery-3.3.1.min.js"></script>
+    <script src="https://course.adinusa.id/static/template_v3/js/uikit.js"></script>
+    <script src="https://course.adinusa.id/static/template_v3/js/tippy.all.min.js"></script>
+    <script src="https://course.adinusa.id/static/template_v3/js/simplebar.js"></script>
+    <script src="https://course.adinusa.id/static/template_v3/js/custom.js"></script>
+    <script src="https://course.adinusa.id/static/template_v3/js/bootstrap-select.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <!-- sweetalert -->
+    <script src="https://course.adinusa.id/static/website/js/sweetalert2%4010.js"></script>
+    <script src="https://course.adinusa.id/static/template_v3/js/adinusa.js"></script>
+    <!-- infinite -->
+    <script src="https://course.adinusa.id/static/website/infinite/jquery.waypoints.min.js"></script>
+    <script src="https://course.adinusa.id/static/website/infinite/infinite.min.js"></script>
+
+    <script>
+        $('#content').empty();
+
+        let searchParams = new URLSearchParams(window.location.search);
+        let materi_id = searchParams.get('id');
+        let posting_id = searchParams.get('p');
+
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: `https://raw.githubusercontent.com/script000kiddies000/materi-sanbercode/master/${materi_id}.json`,
+            success: function(response, status){
+                console.log(response.section);
+
+                for (const [key_section, section] of Object.entries(response.section)) {
+                    let modul = key_section;
+                    data = `
+                    <div class="ukordion">
+                            <a class="uk-accordion-title text-sm font-medium mt-4 mb-1 text-gray-600" href="#">
+                                <span class="">Modul ${modul}</span>
+                            </a>
+                            <a class="" href="#">
+                                <h4 class="text-lg mb-2 font-semibold">${section.nama}</h4>
+                            </a>
+                            <div class="uk-accordion-content mt-3">
+                                <ul class="course-curriculum-list">
+                    `;
+
+                    for (const [key_posting, posting] of Object.entries(section.posting)){
+
+                        data += `
+                        <li class="">
+                            <a href="?id=${materi_id}&p=${posting.uuid}">
+                                ${posting.judul}
+                            </a>
+                        </li>
+                        `;
+
+                        if (posting_id != null) {
+                            if (posting_id == posting.uuid){
+                                $('#title').append(posting.judul);
+                                $('#judul').append(posting.judul);
+                                $('#content').append(posting.konten);
+                            }
+                        }
+                    }
+
+                    data += `
+                                 </ul>
+                            </div>
+                        </div>
+                    `;
+                    $('#myUL').append(data);
+                }
+            },
+            statusCode: {
+                404: function() {
+                    alert("page not found");
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
