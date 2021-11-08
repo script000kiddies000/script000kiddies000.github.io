@@ -1,0 +1,19 @@
+.content-course hr {
+    margin: 1rem 0rem;
+}
+.content-course h1,
+.content-course h2,
+.content-course h3,
+.content-course h4,
+.content-course h5,
+.content-course h6 {
+    margin-bottom: .5rem;
+}
+.content-course p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+ion-icon {
+    pointer-events: none;
+}
