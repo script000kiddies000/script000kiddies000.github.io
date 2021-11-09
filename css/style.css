@@ -9123,7 +9123,7 @@ body {
     /*back link */
   }
   .course-watch .sidebar {
-    height: auto;
+    /* height: auto; */
   }
   .course-watch .slide_menu, .course-watch a.text-sm.flex {
     top: 1rem;
