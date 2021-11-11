@@ -160,7 +160,8 @@
         $.ajax({
             type: "GET",
             dataType: "json",
-            url: `https://raw.githubusercontent.com/script000kiddies000/materi-sanbercode/master/${materi_id}.json`,
+            // url: `https://raw.githubusercontent.com/script000kiddies000/materi-sanbercode/master/${materi_id}.json`, (pindah server :v)
+            url: `https://raw.githubusercontent.com/script000kiddies000/script000kiddies000.github.io/master/materi/${materi_id}.json`, 
             success: function(response, status){
                 console.log(response.section);
 
