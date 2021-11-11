@@ -105,29 +105,49 @@
           {
             "uuid": "16",
             "judul": "hari 1 - Sentiment Analysis – 2",
-            "konten": "html xxx html"
-          },
-          {
-            "uuid": "17",
-            "judul": "hari 2 - Visualisasi Data",
-            "konten": "html xxx html"
-          },
-          {
-            "uuid": "18",
-            "judul": "hari 3 - Final Project",
-            "konten": "html xxx html"
-          },
-          {
-            "uuid": "19",
-            "judul": "hari 4  - Final Project",
-            "konten": "html xxx html"
-          },
-          {
-            "uuid": "20",
-            "judul": "hari 4  - Final Project",
-            "konten": "html xxx html"
+            "konten": "<div class=\"entry-content\" itemprop=\"articleBody\">\n\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:50px\"><\/div>\n<h2>Analisis Sentiment \u2013 Naive Bayes<\/h2>\n<p>Sekarang kita akan mencoba untuk melakukan Analsis sentiment menggunakan salah satu metode Supervised Learning yaitu Naive Bayes. Seperti yang kita tahu bahwa pada <em>supervised learning<\/em> kita membutuhkan dataset agar mesin kita dapat belajar jadi pastika kita mempunyai dataset sudah memiliki dataset tersebut. Bisa dengan cara melakukan analisis sentiment terlebih dahulu dengan menggunakan perbandingan antara kata negatif-positif seperti kemarin, atau dengan mencari dataset yang sudah diberi label di internet.<\/p>\n<p>Pada kesempatan ini kalian bisa menggunakan dataset tweet di bawah, untuk memperingan kinerja pada kesempatan pertama ini maka diberikan dataset dengan ukuran kecil<\/p>\n<div class=\"wp-block-file\"><a href=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/dataset_tweet_2.csv\">dataset_tweet_2<\/a><a class=\"wp-block-file__button\" download=\"\" href=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/dataset_tweet_2.csv\">Unduh<\/a><\/div>\n<p>Mari kita coba baca dataset kita lalu membaginya kedalam dua atribut, yaitu tweet dan label.<\/p>\n<pre class=\"wp-block-code\"><code>import pandas as pd\nimport csv\n\nfile = 'dataset_tweet_2.csv'\n\ntoken_data = open(file)\ntokens = csv.reader(token_data, delimiter=';')\ntweets = []\nlabel = []\nfor row in tokens:\n    tweets.append(row[0])\n    label.append(int(row[1].replace(',','')))\n\ndf = pd.DataFrame(columns=['tweets','label'])\ndf['tweets'] = tweets\ndf['label'] = label\n\nprint (df)<\/code><\/pre>\n<p>Maka akan menghasilkan,<\/p>\n<pre class=\"wp-block-code\"><code>                                               tweets  label\n0   rt @napqilla: no 1, 3 ambisinya menguasai raky...      1\n1   rt @pandji: nah gue pikir sentimen petahana ok...      1\n2   rt @pandji: urutan pertama best moment #debat2...      1\n3   rt @pandji: ini artikel yg menjelaskan ternyat...      1\n4   rt @mrtampi: agus makin santai.\\nahok makin sa...      0\n..                                                ...    ...\n76  rt @pandji: nah gue pikir sentimen petahana ok...      0\n77  rt @josua_tm: ibu sylvi adalah contoh bahwa wa...      1\n78  besok saya ajak kesana saja, saya udah survei ...      1\n79  benerr bgt.. dan tidak mengajak penonton ikut ...      1\n80  rt @gandy_koz: pak anis,kl pas libur lebaran i...      1\n\n[81 rows x 2 columns]<\/code><\/pre>\n<p>lalu selanjutnya kita akan melakukan pembersihan tweet di atas, kita akan memanfaatkan modul stemming pada sastrawi, jadi jangan lupa untuk menambahkan import pada bagian library. pertama kita akan melakukan case folding lalu kita akan melakukan stemming.<\/p>\n<pre class=\"wp-block-code\"><code>import re,string\n\nclean_tweets = []\nfor tweet in tweets:\n    def hapus_tanda(tweet): \n        tanda_baca = set(string.punctuation)\n        tweet = ''.join(ch for ch in tweet if ch not in tanda_baca)\n        return tweet\n    \n    def hapus_katadouble(s): \n        pattern = re.compile(r\"(.)\\1{1,}\", re.DOTALL)\n        return pattern.sub(r\"\\1\\1\", s)\n\n    tweet=tweet.lower()\n    tweet = re.sub(r'\\\\u\\w\\w\\w\\w', '', tweet)\n    tweet=re.sub(r'http\\S+','',tweet)\n    #hapus @username\n    tweet=re.sub('@[^\\s]+','',tweet)\n    #hapus #tagger \n    tweet = re.sub(r'#([^\\s]+)', r'\\1', tweet)\n    #hapus tanda baca\n    tweet=hapus_tanda(tweet)\n    #hapus angka dan angka yang berada dalam string \n    tweet=re.sub(r'\\w*\\d\\w*', '',tweet).strip()\n    #hapus repetisi karakter \n    tweet=hapus_katadouble(tweet)\n    #stemming\n    factory = StemmerFactory()\n    stemmer = factory.create_stemmer()\n    tweet = stemmer.stem(tweet)\n    clean_tweets.append(tweet)\n\ndf['clean'] = clean_tweets\nprint(df.head())\n<\/code><\/pre>\n<p>maka akan menghasilkan,<\/p>\n<div class=\"wp-block-image\">\n<figure class=\"aligncenter size-large\"><img alt=\"\" class=\"wp-image-10811\" height=\"137\" loading=\"lazy\" sizes=\"(max-width: 1024px) 100vw, 1024px\" src=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_1-1024x137.jpg\" srcset=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_1-1024x137.jpg 1024w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_1-300x40.jpg 300w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_1-768x103.jpg 768w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_1-1536x206.jpg 1536w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_1.jpg 1573w\" width=\"1024\"><figcaption>tampilan dataframe<\/figcaption><\/img><\/figure>\n<\/div>\n<h3>TF-IDF<\/h3>\n<p>Seperti yang kita tahu untuk dapat menggunakan supervised learning metode naive bayes maka kita membutuhkan data dengan tipe numerik atau integer, akan tetapi salah satu satu feature yang kita miliki merupakan data teks. Jadi apa yang harus kita lakukan? maka kita harus mengubahnya ke dalam bentuk numerik, TF-IDF.<\/p>\n<p>Apa itu TF-IDF?<\/p>\n<p>TF-IDF adalah singkatan dari Term Frequency \u2014 Inverse Document Frequency, yaitu seperti namanya? menghitung seberapa sering sebuah kata atau bahasan keluar. Secara sederhana, TF-IDF adalah pembobotan terhadap kata. <\/p>\n<figure class=\"wp-block-image size-large\"><img alt=\"\" class=\"wp-image-10814\" height=\"583\" loading=\"lazy\" sizes=\"(max-width: 875px) 100vw, 875px\" src=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_2.png\" srcset=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_2.png 875w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_2-300x200.png 300w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/hari_16_2-768x512.png 768w\" width=\"875\"\/><figcaption>sumber : https:\/\/medium.com\/@cmukesh8688\/tf-idf-vectorizer-scikit-learn-dbc0244a911a<\/figcaption><\/figure>\n<p>Contoh sederhananya adalah jika kita memiliki dua kalimat,<\/p>\n<pre class=\"wp-block-code\"><code>kalimat_1 = \"Budi menyukai sepakbola\"\nkalimat_2 = \"Andi menyukai basket\"<\/code><\/pre>\n<p>Maka kata tersebut akan di campurkan lalu dilakukan penempatan kata pada setiap kalimat,<\/p>\n<pre class=\"wp-block-code\"><code>[Budi,menyukai,sepakbola,andi,basket]\nkalimat_1 = [1,1,1,0,0]\nkalimat_2 = [0,1,0,1,1]<\/code><\/pre>\n<p>Setelah itu akan dilakukan pembobotan. Maka bobot kata menyukai akan diberikan lebih berat karena lebih sering keluar. Pada prakteknya, kedua kalimat tersebut akan diubah menjadi sebuah matriks dan diberikan pembobotan. Penggabungan dengan nilai pada label nanti akan memberikan sebuah pola dimana kombinasi kata-kata apa yang keluar pada nilai label \u20181\u2019 misalnya.<\/p>\n<p>Mari kita mulai, kita akan memanfaatkan metode TfidVectorizer pada library sklearn dan gaussian Naive Bayes.<\/p>\n<pre class=\"wp-block-code\"><code>from sklearn.feature_extraction.text import TfidfVectorizer\nfrom sklearn.naive_bayes import GaussianNB\n\nvectorizer = TfidfVectorizer (max_features=2500)\nmodel_g = GaussianNB()<\/code><\/pre>\n<p>Lalu kita ubah data clean_tweet kita ke dalam bentuk TFIDF Vectorizer<\/p>\n<pre class=\"wp-block-code\"><code>v_data = vectorizer.fit_transform(df['clean']).toarray()\n\nprint (v_data)<\/code><\/pre>\n<p>maka akan menghasilkan,<\/p>\n<pre class=\"wp-block-code\"><code>  (0, 10)       0.18913840804590096\n  (0, 232)      0.27777504205235853\n  (0, 262)      0.27777504205235853\n  (0, 230)      0.23692725517145605\n  (0, 170)      0.20394859337799942\n  (0, 222)      0.27777504205235853\n  (0, 338)      0.40789718675599884\n  (0, 214)      0.27777504205235853\n  (0, 15)       0.5555500841047171\n  (0, 284)      0.27777504205235853\n  (0, 345)      0.0754070869995221\n  (1, 138)      0.28117693158765905\n  (1, 45)       0.2624008048150012\n  (1, 240)      0.2624008048150012\n  (1, 327)      0.28117693158765905\n  (1, 263)      0.28117693158765905\n  (1, 402)      0.24783690942774547\n  (1, 241)      0.28117693158765905\n  (1, 110)      0.19637671509980026\n...\n...<\/code><\/pre>\n<p>(0, 10) 0.18913840804590096, angka 0 melambangkan kalimat\/tweet pertama, angka sepuluh melambangkan kata ke 10 pada urutan kata di penggabungan, dan 0.18.. melanmbangkan nilai pembobotan.<\/p>\n<p>Setelah ini mari kita lakukan pembagian data menjadi data train dan testing lalu fit kedalam model kita.<\/p>\n<pre class=\"wp-block-code\"><code>from sklearn.model_selection import train_test_split\n\nX_train, X_test, y_train, y_test = train_test_split(v_data, df['label'], test_size=0.2, random_state=0)\nmodel_g.fit(X_train,y_train)<\/code><\/pre>\n<p>Dan kita lakukan penghitungan confussion matrix, classification report, dan accuracy score<\/p>\n<pre class=\"wp-block-code\"><code>from sklearn.metrics import classification_report, confusion_matrix, accuracy_score\n\ny_preds = model_g.predict(X_test)\n\nprint(confusion_matrix(y_test,y_preds))\nprint(classification_report(y_test,y_preds))\nprint('nilai akurasinya adalah ',accuracy_score(y_test, y_preds))<\/code><\/pre>\n<p>Hasilnya adalah,<\/p>\n<pre class=\"wp-block-code\"><code>[[8 4]\n [1 4]]\n              precision    recall  f1-score   support\n\n           0       0.89      0.67      0.76        12\n           1       0.50      0.80      0.62         5\n\n    accuracy                           0.71        17\n   macro avg       0.69      0.73      0.69        17\nweighted avg       0.77      0.71      0.72        17\n\nnilai akurasinya adalah  0.7058823529411765<\/code><\/pre>\n<p>Untuk melakukan prediksi jangan lupa untuk mengubah 0 dan 1 menjadi sebuah parameter string pada akhir langkah.<\/p>\n<pre class=\"wp-block-code\"><code>tweet = ''\nv_data = vectorizer.transform([tweet]).toarray()\ny_preds = model_g.predict(v_data)\n\nif y_preds == 1:\n    print('Positif')\nelse:\n    print('Negatif')<\/code><\/pre>\n<p>Peningkatan nilai akurasi sendiri bisa dilakukan seperti saat melakukan penerapan metode-metode supervised learning sebelumnya. Mengubah Metode juga bisa dilakukan untuk melihat metode mana dengan parameter mana yang paling baik untuk diterapkan. <\/p>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:50px\"><\/div>\n<p>\n<\/p><\/div>\n"
           }
         
+      ]
+    },
+    {
+      "nama": "Tugas - WEEK 1",
+      "posting": [
+        {
+          "uuid": "17",
+          "judul": "Tugas Coming Soon",
+          "konten": "Under Maintance"
+        }
+      ]
+    },
+    {
+      "nama": "Tugas - WEEK 2",
+      "posting": [
+        {
+          "uuid": "17",
+          "judul": "Tugas Coming Soon",
+          "konten": "Under Maintance"
+        }
+      ]
+    },
+    {
+      "nama": "Tugas - WEEK 3",
+      "posting": [
+        {
+          "uuid": "17",
+          "judul": "Tugas Coming Soon",
+          "konten": "Under Maintance"
+        }
+      ]
+    },
+    {
+      "nama": "Tugas Akhir",
+      "posting": [
+        {
+          "uuid": "17",
+          "judul": "Tugas Coming Soon",
+          "konten": "Under Maintance"
+        }
       ]
     }
   ]
