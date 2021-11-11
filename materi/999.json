@@ -1,0 +1,134 @@
+
+{
+  "nama":"Python Data Science Lanjutan Baru",
+  "section": [
+    {
+      "nama": "WEEK 1",
+      "posting": [
+        
+          {
+            "uuid": "1",
+            "judul": "Hari 1 - Python - The Tools",
+            "konten": "<p>Lorem ipsum shit dolor amit gan"
+          },
+          {
+            "uuid": "2",
+            "judul": "hari 2 - Excel as Database",
+            "konten":"<div class=\"entry-content\" itemprop=\"articleBody\">\n\n<div class=\"wp-block-image\">\n<figure class=\"aligncenter size-large\"><img alt=\"\" class=\"wp-image-11408\" height=\"192\" loading=\"lazy\" sizes=\"(max-width: 1024px) 100vw, 1024px\" src=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/title_2_1-1024x192.png\" srcset=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/title_2_1-1024x192.png 1024w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/title_2_1-300x56.png 300w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/title_2_1-768x144.png 768w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/title_2_1-1536x288.png 1536w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/title_2_1.png 1920w\" width=\"1024\"\/><\/figure>\n<\/div>\n<p>Xls merupakan salah satu format penyimpanan populer yang banyak digunakan oleh perusahaan ataupun amatir. Kemudahan yang dirasakan oleh user saat penggunaan menggunakan perangkat lunak yang berafiliasi menjadi alasan utama populernya format ini. Karena hal tersebut kemampuan untuk bisa menangani format xls menjadi nilai lebih bagi para developer python.<\/p>\n<p>Python sendiri memiliki banyak sekali library yang berhubungan dengan kegiatan manipulasi data xls, diantaranya:<\/p>\n<ul>\n<li>Xlsxwriter<\/li>\n<li>xlrd<\/li>\n<li>xlwings<\/li>\n<li>xlwt<\/li>\n<li>pyexcel, dan<\/li>\n<li>openpyxl<\/li>\n<\/ul>\n<p>Pada kesempatan kali ini kita akan library openpyxl beserta penggunaannya.<\/p>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:38px\"><\/div>\n<h3>Openpyxl<\/h3>\n<p>Openpyxl adalah library python yang digunakan untuk melakukan baca\/tulis file Excel 2010 baik itu format xlsx atau lainnya. Openpyxl memiliki basis awal dari PHPExcel.<\/p>\n<p>Meinstall library openpyxl sangatlah mudah, kita bisa memanfaatkan pip disini,<\/p>\n<pre class=\"wp-block-code\"><code>pip install openpyxl<\/code><\/pre>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:35px\"><\/div>\n<h4>Manipulasi workbook<\/h4>\n<p>import library openpyxl lalu import class workbook dari library openpyxl<\/p>\n<pre class=\"wp-block-code\"><code>from openpyxl import Workbook\n\nwb = Workbook()\nws = wb.active<\/code><\/pre>\n<p>wb.active digunakan untuk memastikan bahwa kita bekerja pada workbook yang sedang aktif (default = 0). Untuk menambahkan sheet yang kita inginkan kita bisa menggunakan <em>wb.create_sheet()<\/em>. Jika kita memiliki nama sheet yang sama, maka sistem akan melakukan penambahan index secara otomatis. Secara default sheet yang kita tambahkan akan ditambahkan ke akhir list. Tambahkan parameter 0 untuk menambahkan sheet ke awal dan -1 untuk menambahkan sheet ke urutan kedua dari akhir.<\/p>\n<pre class=\"wp-block-code\"><code>ws1 = wb.create_sheet(\"kerja\")\nws2 = wb.create_sheet(\"kerja\", 0)\nws3 = wb.create_sheet(\"kerja\", -1)\n\nprint(wb.sheetnames)<\/code><\/pre>\n<p>untuk melakukan melihat semua nama sheet yang ditambahkan kita bisa melakukan  print(wb.sheetnames)  dan akan mendapatkan hasil,<\/p>\n<pre class=\"wp-block-code\"><code>['kerja1', 'Sheet', 'kerja2', 'kerja']<\/code><\/pre>\n<p>kita dapat mengganti namanya secara manual dengan menggunakan  .title . Misalkan kita ingin mengganti nama dari sheet 2, maka yang kita lakukan<\/p>\n<pre class=\"wp-block-code\"><code>ws.title = 'kerjabaru'<\/code><\/pre>\n<p>dan jika kita print ulang akan mendapatkan hasil,<\/p>\n<pre class=\"wp-block-code\"><code>['kerja1', 'kerjabaru', 'kerja2', 'kerja']<\/code><\/pre>\n<p>Setelah memberikan nama pada sheetmu, kamu bisa melakukan akses langsung dengan menggunakan nama tersebut.<\/p>\n<pre class=\"wp-block-code\"><code>workaktif = wb['kerjabaru']\nprint (workaktif)\n\n#&lt;Worksheet \"kerjabaru\"&gt;<\/code><\/pre>\n<p>Kita bisa melakukan penyimpanan dengan menggunakan<\/p>\n<pre class=\"wp-block-code\"><code>wb.save('namafile.xlsx')<\/code><\/pre>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:33px\"><\/div>\n<h4>Manipulasi Sel<\/h4>\n<p>Untuk mengakses sel terdapat dua cara, yang pertama adalah akses langsung dengan menggunakan nama selnya atau dengan menggunakan index.<\/p>\n<pre class=\"wp-block-code\"><code>ws['B4'] = 4\n#atau\nws.cell(row=4, column=2).value = 4<\/code><\/pre>\n<p>untuk melakukan akses banyak sel kita bisa memanfaatkan for loop. misalkan kita punya sebuah list a dan ingin kita masukkan pertama pada baris pertama dan kedua pada kolom pertama.<\/p>\n<pre class=\"wp-block-code\"><code>a = ['aku', 'suka', 'makan', 'bakso']\n\nfor row in range(0,len(a)):\n    ws.cell(row=row+1, column=1).value= a[row]\n\nfor column in range(0,len(a)):\n    ws.cell(row=1, column=column+1).value= a[column]<\/code><\/pre>\n<p>row + 1 dan column +1 digunakan karena baris dan kolom tidak bisa dimulai dari 0. <\/p>\n<p>Jika kita memiliki data ke dalam banyak baris dan kolom kita bisa mengubahnya ke dalam bentuk matriks (list dalam list) lalu kita manfaatkan fungsi append. Misalkan kita mempunyai data list makanan terhadapat hari dan ingin memasukkan pada bari dan kolom excel maka yang kita lakukan adalah,<\/p>\n<pre class=\"wp-block-code\"><code>menu = [['hari'],['senin', 'nasi', 'ayam'],['selasa', 'susu'],['rabu','nasi goreng', 'ati ampela', 'jus apel'],['kamis','capcay','telur mata sapi']]\nfor item in menu:\n    ws.append(item)<\/code><\/pre>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:34px\"><\/div>\n<h4>Membaca Excel<\/h4>\n<p>Pada kesempatan kali ini kita akan mencoba untuk melakukan penulisan dan pembacaan file excel yang berasal dari basis data sqlite. Untuk melakukan pembacaan data pada file excel, kita bisa memanfaatkan modul load_workbook pada library openpyxl. <\/p>\n<pre class=\"wp-block-code\"><code>from openpyxl import load_workbook\n\ndata = load_workbook(filename=\"namafile.xlsx\")<\/code><\/pre>\n<p>Kode di atas akan membuka file namafile.xlsx. Beberapa fungsi yang kita jalankan saat akan menulis data pada excel bisa kita jalankan juga pada bagian ini untuk mengecek data kita.<\/p>\n<pre class=\"wp-block-code\"><code>print(data.sheetnames)\nsheet = data.actve\nprint(sheet)<\/code><\/pre>\n<p>data.sheetnames akan memberikan kita nama-nama dari worksheet yang dimiliki oleh file tersebut. Untuk memasangkan variabel pada sheet active kita bisa menggunakan data.active atau gunakan sheet[\u2018namasheet\u2019] untuk menginisiasi.<\/p>\n<pre class=\"wp-block-code\"><code>print(sheet[\"A1\"])\n#&lt;Cell 'Sheet'.A1&gt;\n\nprint(sheet[\"A1\"].value)\n#'First Name'<\/code><\/pre>\n<p>print(sheet[\u201cA1\u201d]) digunakan untuk mengecek sel kita, dan print(sheet[\u201cA1\u201d].value) digunakan untuk mengambil nilai dari sel yang kita pilih. selain menggunakan cara di atas kita juga bisa menggunakan .cell() untuk melakukan pengambilan data.<\/p>\n<pre class=\"wp-block-code\"><code>sheet.cell(row=1, column=1)\n#&lt;Cell 'Sheet1'.A1&gt;\n\n&gt;&gt;&gt; sheet.cell(row=1, column=1).value\n#'First Name'<\/code><\/pre>\n<p>Untuk menggunakan mengambil data dalam range maka kita bisa menggunakan query,<\/p>\n<pre class=\"wp-block-code\"><code>sheet[\"A3:D4\"]\nsheet[\"A\"]\nsheet[1]\nsheet[\"A:B\"]\nsheet[1:4]<\/code><\/pre>\n<ul>\n<li>sheet[\u201cA3:D4\u201d] akan mengambil data pada kota di dalam A3 sampai D4<\/li>\n<li>sheet[\u201cA\u201d] akan mengambil semua data pada kolom A<\/li>\n<li>sheet[1] akan mengambil semua data pada baris pertama<\/li>\n<li>sheet[\u201cA:B\u201d] akan mengambil semua data pada kolom A sampai kolom B<\/li>\n<li>sheet[1:4] akan mengambil semua data pada baris pertama sampai bari keempat.<\/li>\n<\/ul>\n<p>Selain menggunakan cara di atas untuk melakukan banyak pengambilan kita dapat memanfaatkan iter_rows() dan iter_cols() <\/p>\n<pre class=\"wp-block-code\"><code>#digunakan untuk mengambil semua kolom dengan range disebutkan\nsheet.iter_cols(min_row=1, max_row=4, min_col=1, max_col=4)\n#digunakan untuk mengambil semua baris dengan range disebutkan\nsheet.iter_row(min_row=1, max_row=4, min_col=1, max_col=4)<\/code><\/pre>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:56px\"><\/div>\n<h3><strong>Pandas &amp; Excel<\/strong><\/h3>\n<p>Karena dalam melakukan Data Mining dan Machine Learning penggunaan pandas cukup sering dilakukan oleh bebebrapa user, jadi kemampuan untuk mengkonversikan dataframe kedalam excel menjadi penting.<\/p>\n<p>Untuk melakukan konversi dari dataframe ke dalam excel yang disimpan kita dapat menggunakan.<\/p>\n<pre class=\"wp-block-code\"><code>df.to_excel(\"namafile.xlsx\") #df bisa diganti nama dataframe<\/code><\/pre>\n<p>Jika kita perlu memasukkan ke dalam sheet tertentu, bisa kita gunakan<\/p>\n<pre class=\"wp-block-code\"><code>df.to_excel(\"namafile.xlsx\",\n             sheet_name='nama_sheet')<\/code><\/pre>\n<p>Memasukkan beberapa dataframe kedalam sheet yang berbeda dapat kita lakukan dengan memanfaatkan fungsi ExcelWriter<\/p>\n<pre class=\"wp-block-code\"><code>with pd.ExcelWriter('namafile.xlsx') as writer:  \n    hasil1.to_excel(writer, sheet_name='nama_sheet_1')\n    hasil2.to_excel(writer, sheet_name='nama_sheet_2')<\/code><\/pre>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:56px\"><\/div>\n<h3>Visualisasi<\/h3>\n<p>Excel tidak hanya digunakan untuk menyimpan data, pada umumnya seseorang akan menggunakan juga sebagai media untuk memvisualisasikan data yang telah diolah. Bisa untuk kebutuhan presentasi atau juga laporan. Menariknya adalah openpyxl sendiri sudah memiliki kemampuan untuk melakukan visualisasi dari IDE kita tanpa harus membuka file excel tersebut.<\/p>\n<div class=\"wp-block-file\"><a href=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/pulau_indonesia.csv\">pulau_indonesia<\/a><a class=\"wp-block-file__button\" download=\"\" href=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/09\/pulau_indonesia.csv\">Unduh<\/a><\/div>\n<p>Pertama kita import semua library yang dibutuhkan<\/p>\n<pre class=\"wp-block-code\"><code>from openpyxl import Workbook\nfrom openpyxl.chart import BarChart, Series, Reference\nimport csv<\/code><\/pre>\n<p>Lalu kita akan buka data dari file csv yang kita miliki dan inisiasi file excel kita<\/p>\n<pre class=\"wp-block-code\"><code>#inisiasi excel\nwb = Workbook()\nws = wb.active\n\n#open file\ndata = open('pulau_indonesia.csv')\nrows = csv.reader(data, delimiter=',')<\/code><\/pre>\n<p>Dengan memanfaatkan looping kita coba untuk membaca perbaris file csv kita dan memasukkannya ke dalam file excel<\/p>\n<pre class=\"wp-block-code\"><code>index = 0\nfor row in rows:\n    data_clean = []\n    for i in row:\n        try:\n            i = int(i)\n        except:\n            pass\n        data_clean.append(i)\n    ws.append(data_clean)\n    index +=1\nlen_row = len(data_clean)<\/code><\/pre>\n<p>Agar data tersebut dapat diolah maka kita perlu mengubah semua data kita yang terlihat seperti angka tapi masih string (misal: \u201c76\u201d) menjadi integer (76). itulah guna dari kode \u2018for i in row()\u2019.<\/p>\n<p>variabel index digunakan untuk mengetahui jumlah row maksimum dan variabel len_row digunakan untuk mengetahui berapa banyak data kita. kedua variabel tersebut akan kita gunakan pada langkah selanjutnya.<\/p>\n<p>Sekarang saatnya kita menginisiasi chart kita, chart yang akan kita gunakan adalah jenis bar.<\/p>\n<pre class=\"wp-block-code\"><code>chart1 = BarChart()\nchart1.type = \"col\"\nchart1.style = 3\nchart1.title = \"Bar Chart\"\nchart1.y_axis.title = 'Jumlah Pulau'\nchart1.x_axis.title = 'Nama Provinsi'<\/code><\/pre>\n<ul>\n<li>chart.type digunakan untuk menentukan jenis bar chart kita, apakah secara horizontal atau vertikal.<\/li>\n<li>chart style digunakan untuk mengubah style atau warna dari chart kita<\/li>\n<li>chart.title digunakan untuk mengganti Judul chart kita<\/li>\n<li>axis.title digunakan untuk memberi judul axis kita<\/li>\n<\/ul>\n<pre class=\"wp-block-code\"><code>data = Reference(ws, min_col=3, min_row=1, max_row=index, max_col=len_row-1)\ncats = Reference(ws, min_col=2, min_row=2, max_row=index)\nchart1.height = 10 # default is 7.5\nchart1.width = 30 # default is 15\nchart1.add_data(data, titles_from_data=True)\nchart1.set_categories(cats)\nws.add_chart(chart1, \"G2\")<\/code><\/pre>\n<ul>\n<li>chart.heigt untuk mengatur tinggi chart<\/li>\n<li>chart.width untuk mengatur lebar chart<\/li>\n<li>chart.add_data untuk memasukkan data untuk dipakai chart kita, title_from_data jika ingin data kita langsung memasukkan legenda dari judul kolom.<\/li>\n<li>chart.set_categories digunakan untuk memberi nilai axis x<\/li>\n<\/ul>\n<p>Lalu setelah semua itu kita masukkan chart kita ke dalam workspaces dengan menggunakan add_chart(), dimana \u2018G2\u2019 adalah dimana saya ingin menempatkan chart saya.<\/p>\n<p>terakhir kita save file excel kita<\/p>\n<pre class=\"wp-block-code\"><code>wb.save(\"bar.xlsx\")<\/code><\/pre>\n<p>Saat kita buka file excel tersebut akan terlihat seperti gambar di bawah.<\/p>\n<figure class=\"wp-block-image size-large\"><img alt=\"\" class=\"wp-image-9709\" height=\"470\" loading=\"lazy\" sizes=\"(max-width: 1024px) 100vw, 1024px\" src=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/08\/excel_1-1024x470.png\" srcset=\"https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/08\/excel_1-1024x470.png 1024w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/08\/excel_1-300x138.png 300w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/08\/excel_1-768x353.png 768w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/08\/excel_1-470x216.png 470w, https:\/\/blog.sanbercode.com\/wp-content\/uploads\/2020\/08\/excel_1.png 1295w\" width=\"1024\"\/><\/figure>\n<p>Kode lengkap nya menjadi,<\/p>\n<pre class=\"wp-block-code\"><code>from openpyxl import Workbook\nfrom openpyxl.chart import BarChart, Series, Reference\nimport csv\n\n#inisiasi excel\nwb = Workbook()\nws = wb.active\n\n#open file\ndata = open('pulau_indonesia.csv')\nrows = csv.reader(data, delimiter=',')\n\nindex = 0\nfor row in rows:\n    data_clean = []\n    for i in row:\n        try:\n            i = int(i)\n        except:\n            pass\n        data_clean.append(i)\n    ws.append(data_clean)\n    index +=1\nlen_row = len(data_clean)\n\nchart1 = BarChart()\nchart1.type = \"col\"\nchart1.style = 3\nchart1.title = \"Bar Chart\"\nchart1.y_axis.title = 'Jumlah Pulau'\nchart1.x_axis.title = 'Nama Provinsi'\n\ndata = Reference(ws, min_col=3, min_row=1, max_row=index, max_col=len_row-1)\ncats = Reference(ws, min_col=2, min_row=2, max_row=index)\nchart1.height = 10 # default is 7.5\nchart1.width = 30 # default is 15\nchart1.add_data(data, titles_from_data=True)\nchart1.set_categories(cats)\nws.add_chart(chart1, \"G2\")\n\nwb.save(\"bar.xlsx\")<\/code><\/pre>\n<p>Kalian bisa mencoba mengubah-ubah chart kalian dengan meilhat dokumentasi, terdapat hampir semua jenis chart yang bisa kalian implementasikan sesuai kebutuhan.<\/p>\n<div aria-hidden=\"true\" class=\"wp-block-spacer\" style=\"height:58px\"><\/div>\n<h3>Sumber pustaka<\/h3>\n<p><a href=\"https:\/\/openpyxl.readthedocs.io\/\">https:\/\/openpyxl.readthedocs.io\/<\/a><\/p>\n<p>\n<\/p><\/div>\n"
+          },
+          {
+            "uuid": "3",
+            "judul": "hari 3 - Introduction to SQL",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "4",
+            "judul": "hari 4 - Control Your SQL",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "5",
+            "judul": "hari 5 - Python’s SQL",
+            "konten": "html xxx html"
+          }
+        
+      ]
+    },
+    {
+      "nama": "WEEK 2",
+      "posting": [
+        
+          {
+            "uuid": "6",
+            "judul": "hari 1 - Data Mining",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "7",
+            "judul": "hari 2 - Known the BeautifulSoup",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "8",
+            "judul": "hari 3 - Wikipedia WebScraping",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "9",
+            "judul": "hari 4 - Scraping Analysis – KMeans",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "10",
+            "judul": "hari 5 - Scraping Analysis – KNN & SVM",
+            "konten": "html xxx html"
+          }
+        
+      ]
+    },
+    {
+      "nama": "WEEK 3",
+      "posting": [
+        
+          {
+            "uuid": "11",
+            "judul": "hari 1 - Scraping Analysis – Cross Validation",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "12",
+            "judul": "hari 2 - API",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "13",
+            "judul": "hari 3 - Twitter API",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "14",
+            "judul": "hari 4 - Sentiment Analysis – 1",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "15",
+            "judul": "hari 5 - Sastrawi & NLTK",
+            "konten": "html xxx html"
+          }
+        
+      ]
+    },
+    {
+      "nama": "WEEK 4",
+      "posting": [
+        
+          {
+            "uuid": "16",
+            "judul": "hari 1 - Sentiment Analysis – 2",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "17",
+            "judul": "hari 2 - Visualisasi Data",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "18",
+            "judul": "hari 3 - Final Project",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "19",
+            "judul": "hari 4  - Final Project",
+            "konten": "html xxx html"
+          },
+          {
+            "uuid": "20",
+            "judul": "hari 4  - Final Project",
+            "konten": "html xxx html"
+          }
+        
+      ]
+    }
+  ]
+}
