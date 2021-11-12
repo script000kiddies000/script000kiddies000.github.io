@@ -1,0 +1,130 @@
+{
+    "materi":[
+        {
+            "id":"186",
+            "nama":"Laravel - Web Development",
+            "image":"laravel.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"997",
+            "nama":"Laravel - Web Development Lanjutan",
+            "image":"laravel.png",
+            "tingkat":"Menengah",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"195",
+            "nama":"Flutter Mobile App Development",
+            "image":"flutter.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"187",
+            "nama":"React Native - Mobile App Development",
+            "image":"react.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"998",
+            "nama":"React Native - Mobile App Development Lanjutan",
+            "image":"react.png",
+            "tingkat":"Menengah",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"189",
+            "nama":"AI dan PS Graphic Design",
+            "image":"ai.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"188",
+            "nama":"Python - Data Science",
+            "image":"python.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"999",
+            "nama":"Python - Data Science Lanjutan",
+            "image":"python.png",
+            "tingkat":"Menengah",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"190",
+            "nama":"Wordpress - CMS Web",
+            "image":"wordpress.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"191",
+            "nama":"UI/UX Design",
+            "image":"uiux.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"192",
+            "nama":"React Js - Web Frontend Development",
+            "image":"reactjs.jpg",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"194",
+            "nama":"Vue.js Web Frontend Development",
+            "image":"vuejs.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"196",
+            "nama":"Digital Marketing Sosmed & SEO",
+            "image":"seo.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"197",
+            "nama":"Golang Backend Development",
+            "image":"golang.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"193",
+            "nama":"Agile Development",
+            "image":"agile.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"101",
+            "nama":"Backend Microservices with Python",
+            "image":"flask.jpg",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"158",
+            "nama":"NodeJS Backend Development with Adonis",
+            "image":"nodejs.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        },
+        {
+            "id":"996",
+            "nama":"Centos Web Server – Devops",
+            "image":"centos.png",
+            "tingkat":"Pemula",
+            "jenis":"GRATIS"
+        }
+    ]
+}
