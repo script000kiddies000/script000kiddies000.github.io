@@ -609,11 +609,13 @@
 
     <!-- CSS
     ================================================== -->
+    <link rel="stylesheet" href="https://pagination.js.org/dist/2.1.4/pagination.css"/>
     <link href="./css/uikit.css" rel="stylesheet" />
     <link href="./css/style.css" rel="stylesheet" />
     <link href="./css/tailwind.css" rel="stylesheet" />
     <link href="./css/all.min.css" rel="stylesheet" />
     <link href="./css/adinusa.css" rel="stylesheet" />
+
 
 <body cz-shortcut-listen="true">
 
@@ -747,6 +749,9 @@
                     </div>
                 </div>
 
+                <!-- Back to top button -->
+                <a id="button"></a>
+
                 <div class="w-full">
 
                     <div class="md:flex justify-between items-center mb-5">
@@ -783,10 +788,10 @@
 
                     <!-- course list -->
 
-                    <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3" id="materi">
-
+                        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3" id="materi"></div>
+                        <div class="list"></div>
+                    
                     </div>
-
                 </div>
             </div>
 
@@ -972,6 +977,10 @@
     <script src="./js/jquery.waypoints.min.js"></script>
     <script src="./js/infinite.min.js"></script>
 
+    <!-- pagination -->
+    <script src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
+
+
 
     <script>
         $(document).ready(function() {
@@ -997,61 +1006,67 @@
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                // url: `https://raw.githubusercontent.com/script000kiddies000/script000kiddies000.github.io/master/materi/list-materi.json`, 
-                url: `/master/materi/list-materi.json`, 
+                url: `https://raw.githubusercontent.com/script000kiddies000/script000kiddies000.github.io/master/materi/list-materi.json`, 
+                // url: `./materi/list-materi.json`, 
                 success: function(response, status){
-                    console.log(response.materi);
+                    $('.list').pagination({
+                        dataSource: response.materi,
+                        pageSize:6,
+                        callback: function (data, pagination){
+                            console.log(data);
+                            $('#materi').empty();
+                            $.each(data, function (key, materi) {
+                                let data = `
+                                <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
 
-                    $('#materi').empty();
-                    for (const [key_materi, materi] of Object.entries(response.materi)){
-                        let data = `
-                        <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-
-                            <div class="w-full h-40 overflow-hidden rounded-t-lg relative flex justify-center">
+                                    <div class="w-full h-40 overflow-hidden rounded-t-lg relative flex justify-center">
 
 
-                                <a href="materi.html?id=${materi.id}" class="uk-link-reset">
+                                        <a href="materi.html?id=${materi.id}" class="uk-link-reset">
 
-                                    <img src="./img/${materi.image}" alt="" class="w-full h-full inset-0 object-cover">
+                                            <img src="./img/${materi.image}" alt="" class="w-full h-full inset-0 object-cover">
 
-                                </a>
-                            </div>
-                            <div class="p-4">
-                                <div class="font-semibold line-clamp-2">
-
-                                    <a href="materi.html?id=${materi.id}" class="uk-link-reset">
-                                        <font style="vertical-align: inherit;">
-                                            ${materi.nama}
-                                        </font>
-                                    </a>
-
-                                </div>
-                                <div class="flex space-x-2 items-center text-sm pt-3">
-                                    <div>
-                                        <font style="vertical-align: inherit;"> ${materi.tingkat} </font>
+                                        </a>
                                     </div>
+                                    <div class="p-4">
+                                        <div class="font-semibold line-clamp-2">
 
-                                </div>
-                                <div class="pt-2 flex items-center justify-between">
+                                            <a href="materi.html?id=${materi.id}" class="uk-link-reset">
+                                                <font style="vertical-align: inherit;">
+                                                    ${materi.nama}
+                                                </font>
+                                            </a>
 
-                                    <div class="text-lg font-semibold">
-                                        <font style="vertical-align: inherit;">${materi.jenis}</font>
+                                        </div>
+                                        <div class="flex space-x-2 items-center text-sm pt-3">
+                                            <div>
+                                                <font style="vertical-align: inherit;"> ${materi.tingkat} </font>
+                                            </div>
+
+                                        </div>
+                                        <div class="pt-2 flex items-center justify-between">
+
+                                            <div class="text-lg font-semibold">
+                                                <font style="vertical-align: inherit;">${materi.jenis}</font>
+                                            </div>
+
+
+
+                                            <div class="text-sm font-semibold">
+                                                <a href="https://mrizkyr.my.id/" style="height: 100%;"><img class="d-flex align-items-center" src="./img/logo.png" alt="ILLEGAL FREEDOM" style="width: 130px;"></a>
+                                            </div>
+
+                                        </div>
                                     </div>
-
-
-
-                                    <div class="text-sm font-semibold">
-                                        <a href="https://mrizkyr.my.id/" style="height: 100%;"><img class="d-flex align-items-center" src="./img/logo.png" alt="ILLEGAL FREEDOM" style="width: 130px;"></a>
                                     </div>
+                                `;
 
-                                </div>
-                            </div>
-                            </div>
-                        `;
-
-                        $('#materi').append(data);
-                    }
+                                $('#materi').append(data);
+                            });
+                        }
+                    });
                 }
+                
             });
 
         });
