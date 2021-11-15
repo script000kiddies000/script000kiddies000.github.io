@@ -45,7 +45,7 @@
                 <div class="max-w-2xl lg:py-3 uk-switcher" id="course-tabs">
                     <!--  Overview -->
                     <div>
-                        <h4 class="text-2xl font-semibold mb-5" id="h4judul"> </h4>
+                        <h4 class="text-2xl font-semibold mb-5" id="judul"> </h4>
                         <hr class="my-5" />
                         <div class="content-course" id="content">
                             Untuk PC pilih materi di menu sebelah kiri. untuk hp menu materi di pojok kanan atas.
@@ -97,7 +97,7 @@
             <a id="button"></a>
 
             <!-- title -->
-            <h1 class="text-2xl font-bold mt-2" id="judul"></h1>
+            <h1 class="text-2xl font-bold mt-2" id="h4judul"></h1>
             <!-- sidebar list -->
             <div class="sidebar_inner" data-simplebar="">
                 <div class="relative overflow-hidden rounded-md bg-gray-200 h-1 mt-4">
@@ -163,7 +163,6 @@
         $.ajax({
             type: "GET",
             dataType: "json",
-            // url: `https://raw.githubusercontent.com/script000kiddies000/materi-sanbercode/master/${materi_id}.json`, (pindah server :v)
             url: `https://raw.githubusercontent.com/script000kiddies000/script000kiddies000.github.io/master/materi/${materi_id}.json`, 
             success: function(response, status){
                 console.log(response.section);
