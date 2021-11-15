@@ -686,7 +686,7 @@
                             </h4>
                             <div class="bg-white mb-5 relative rounded-md w-full shadow-lg" id="search" khidden="">
                                 <ion-icon name="search-outline" class="absolute h-full hydrated left-3 text-lg md text-gray-600" role="img" aria-label="search outline"></ion-icon>
-                                <input type="search" placeholder="Cari..." class="focus:outline-none h-12 pl-10 rounded-lg w-full bg-white" name="search">
+                                <input type="search" placeholder="Cari..." class="focus:outline-none h-12 pl-10 rounded-lg w-full bg-white" name="search" disabled>
                             </div>
                         </div>
 
@@ -696,7 +696,7 @@
                             </h4>
                             <div>
                                 <div class="radio">
-                                    <input id="radio-1" name="level" class="course_level" type="radio" value="beginner">
+                                    <input id="radio-1" name="level" class="course_level" type="radio" value="Pemula">
                                     <label for="radio-1"><span class="radio-label"></span>
                                         <font style="vertical-align: inherit;"> Pemula
                                         </font>
@@ -704,18 +704,18 @@
                                 </div>
                                 <br>
                                 <div class="radio">
-                                    <input id="radio-2" name="level" class="course_level" type="radio" value="intermediate">
+                                    <input id="radio-2" name="level" class="course_level" type="radio" value="Menengah">
                                     <label for="radio-2"><span class="radio-label"></span>
-                                        <font style="vertical-align: inherit;"> Pemula </font>
+                                        <font style="vertical-align: inherit;"> Menengah </font>
                                     </label>
                                 </div>
                                 <br>
-                                <div class="radio">
+                                <!-- <div class="radio">
                                     <input id="radio-3" name="level" class="course_level" type="radio" value="expert">
                                     <label for="radio-3"><span class="radio-label"></span>
                                         <font style="vertical-align: inherit;">Mahir </font>
                                     </label>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -725,14 +725,14 @@
                             </h4>
 
                             <div class="radio">
-                                <input id="course-type-1" class="course_type" name="type" type="radio" value="free">
+                                <input id="course-type-1" class="course_type" name="type" type="radio" value="GRATIS">
                                 <label for="course-type-1"><span class="radio-label"></span>
                                     <font style="vertical-align: inherit;">Gratis </font>
                                 </label>
                             </div>
                             <br>
                             <div class="radio">
-                                <input id="course-type-2" class="course_type" name="type" type="radio" value="paid">
+                                <input id="course-type-2" class="course_type" name="type" type="radio" value="BERBAYAR">
                                 <label for="course-type-2"><span class="radio-label"></span>
                                     <font style="vertical-align: inherit;">Berbayar </font>
                                 </label>
@@ -742,11 +742,11 @@
                     </form>
 
 
-                    <div class="flex space-x-3">
+                    <!-- <div class="flex space-x-3">
                         <a href="#maintance" class="flex items-center justify-center h-10 px-6 rounded-md bg-blue-600 text-white">
                             <font style="vertical-align: inherit;">Mengatur ulang </font>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Back to top button -->
@@ -770,12 +770,12 @@
                         <div class="flex items-center space-x-3 justify-end hidden md:block">
 
                             <div class="flex space-x-1 bg-gray-200 rounded-md p-1 text-lg">
-                                <a href="#maintance" class="py-1.5 px-3 rounded-md  bg-white shadow " data-tippy-placement="top" data-tippy="" data-original-title="Grid view">
+                                <a href="#maintance" class="py-1.5 px-3 rounded-md  bg-white shadow " data-tippy-placement="top" data-tippy="" data-original-title="Grid view" disabled>
                                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                     </svg>
                                 </a>
-                                <a href="#maintance" class="py-1.5 px-3 rounded-md " data-tippy-placement="top" data-tippy="" data-original-title="List view">
+                                <a href="#maintance" class="py-1.5 px-3 rounded-md " data-tippy-placement="top" data-tippy="" data-original-title="List view" disabled>
                                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                                     </svg>
@@ -983,6 +983,75 @@
 
 
     <script>
+        function find_in_object(my_object, my_criteria){
+            return my_object.filter(function(obj) {
+                return Object.keys(my_criteria).every(function(c) {
+                    return obj[c] == my_criteria[c];
+                });
+            });
+
+        }
+
+        function update_materi(response){
+            $('.list').pagination({
+                dataSource: response,
+                pageSize:6,
+                callback: function (data, pagination){
+                    // console.log(data);
+
+                    $('#materi').empty();
+                    $.each(data, function (key, materi) {
+                        let data = `
+                        <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
+
+                            <div class="w-full h-40 overflow-hidden rounded-t-lg relative flex justify-center">
+
+
+                                <a href="materi.html?id=${materi.id}" class="uk-link-reset">
+
+                                    <img src="./img/${materi.image}" alt="" class="w-full h-full inset-0 object-cover">
+
+                                </a>
+                            </div>
+                            <div class="p-4">
+                                <div class="font-semibold line-clamp-2">
+
+                                    <a href="materi.html?id=${materi.id}" class="uk-link-reset">
+                                        <font style="vertical-align: inherit;">
+                                            ${materi.nama}
+                                        </font>
+                                    </a>
+
+                                </div>
+                                <div class="flex space-x-2 items-center text-sm pt-3">
+                                    <div>
+                                        <font style="vertical-align: inherit;"> ${materi.tingkat} </font>
+                                    </div>
+
+                                </div>
+                                <div class="pt-2 flex items-center justify-between">
+
+                                    <div class="text-lg font-semibold">
+                                        <font style="vertical-align: inherit;">${materi.jenis}</font>
+                                    </div>
+
+
+
+                                    <div class="text-sm font-semibold">
+                                        <a href="https://mrizkyr.my.id/" style="height: 100%;"><img class="d-flex align-items-center" src="./img/logo.png" alt="ILLEGAL FREEDOM" style="width: 130px;"></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+                        `;
+
+                        $('#materi').append(data);
+                    });
+                }
+            });
+        }
+
         $(document).ready(function() {
             $('#snippet-content-course > p').addClass('line-clamp-2');
 
@@ -1003,73 +1072,35 @@
                 $('#form-filtering').submit()
             });
 
+
+            let searchParams = new URLSearchParams(window.location.search);
+            let materi_level = searchParams.get('level');
+            let materi_jenis = searchParams.get('type');
+            let materi_search = searchParams.get('search');
+
+
             $.ajax({
                 type: "GET",
                 dataType: "json",
                 url: `https://raw.githubusercontent.com/script000kiddies000/script000kiddies000.github.io/master/materi/list-materi.json`, 
                 // url: `./materi/list-materi.json`, 
                 success: function(response, status){
-                    $('.list').pagination({
-                        dataSource: response.materi,
-                        pageSize:6,
-                        callback: function (data, pagination){
-                            console.log(data);
-                            $('#materi').empty();
-                            $.each(data, function (key, materi) {
-                                let data = `
-                                <div class="bg-white shadow-sm rounded-lg uk-transition-toggle">
-
-                                    <div class="w-full h-40 overflow-hidden rounded-t-lg relative flex justify-center">
-
-
-                                        <a href="materi.html?id=${materi.id}" class="uk-link-reset">
-
-                                            <img src="./img/${materi.image}" alt="" class="w-full h-full inset-0 object-cover">
-
-                                        </a>
-                                    </div>
-                                    <div class="p-4">
-                                        <div class="font-semibold line-clamp-2">
-
-                                            <a href="materi.html?id=${materi.id}" class="uk-link-reset">
-                                                <font style="vertical-align: inherit;">
-                                                    ${materi.nama}
-                                                </font>
-                                            </a>
-
-                                        </div>
-                                        <div class="flex space-x-2 items-center text-sm pt-3">
-                                            <div>
-                                                <font style="vertical-align: inherit;"> ${materi.tingkat} </font>
-                                            </div>
-
-                                        </div>
-                                        <div class="pt-2 flex items-center justify-between">
-
-                                            <div class="text-lg font-semibold">
-                                                <font style="vertical-align: inherit;">${materi.jenis}</font>
-                                            </div>
-
-
-
-                                            <div class="text-sm font-semibold">
-                                                <a href="https://mrizkyr.my.id/" style="height: 100%;"><img class="d-flex align-items-center" src="./img/logo.png" alt="ILLEGAL FREEDOM" style="width: 130px;"></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    </div>
-                                `;
-
-                                $('#materi').append(data);
-                            });
-                        }
-                    });
+                    //logic fitur search dan timpa response
+                    if (materi_level != null) {
+                        response = find_in_object(response, {tingkat: materi_level});
+                    }else if (materi_jenis != null){
+                        response = find_in_object(response, {jenis: materi_jenis});
+                    }
+                    
+                    if( materi_search != '' ){
+                        console.log(`materi search : ${materi_search}`)
+                    }
+                    update_materi(response); 
+                    console.log(response);
                 }
-                
             });
-
         });
+
     </script>
 
 

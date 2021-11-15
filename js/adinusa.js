@@ -12,7 +12,6 @@ $( document ).ready(function() {
 var btn = $('#button');
 
 $(window).scroll(function() {
-  console.log($(window).scrollTop());
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     btn.addClass('show');
   } else {
