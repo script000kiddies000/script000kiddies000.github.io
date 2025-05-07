@@ -3,7 +3,7 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main  # Ganti jika kamu pakai branch lain
+      - master  # Ganti jika kamu pakai branch lain
 
 permissions:
   contents: write
